@@ -7,5 +7,7 @@ urlpatterns = [
     re_path(r'^articles/(?P<year>\d{4})/(?P<month>\d{2})', views.list_articles),
     path('redirection', views.view_redirection),
     path('date', views.date_actuelle),
-    path('addition/<int:nombre1>/<int:nombre2>/', views.addition)
+    path('addition/<int:nombre1>/<int:nombre2>/', views.addition),
+    path('gender/<sexe>', views.gender),
+    path('age/<int:age>', views.age),
 ]

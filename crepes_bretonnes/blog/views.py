@@ -33,3 +33,10 @@ def addition(request, nombre1, nombre2):
 
     # Retourne nombre1, nombre2 et la somme des deux au tpl
     return render(request, 'blog/addition.html', locals())
+
+def gender(request, sexe):
+    sexe = sexe.capitalize()
+    return render(request, 'blog/gender.html', locals())
+
+def age(request, age):
+    return render(request, 'blog/age.html', locals())
