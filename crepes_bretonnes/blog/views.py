@@ -40,3 +40,14 @@ def gender(request, sexe):
 
 def age(request, age):
     return render(request, 'blog/age.html', locals())
+def colors(request):
+    colors = {
+    'FF0000':'red', 
+    'ED7F10':'orange', 
+    'FFFF00':'yellow', 
+    '00FF00':'green', 
+    '0000FF':'blue', 
+    '4B0082':'indigo', 
+    '660099':'purple',
+}
+    return render(request, 'blog/colors.html', locals())

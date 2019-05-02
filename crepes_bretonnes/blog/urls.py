@@ -10,4 +10,5 @@ urlpatterns = [
     path('addition/<int:nombre1>/<int:nombre2>/', views.addition),
     path('gender/<sexe>', views.gender),
     path('age/<int:age>', views.age),
+    path('colors', views.colors),
 ]
