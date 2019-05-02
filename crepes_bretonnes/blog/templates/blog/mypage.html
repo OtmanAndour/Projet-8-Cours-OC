@@ -2,6 +2,10 @@
 {% block title %}Ma page d'accueil{% endblock %}
 {% block content %}
     <h2>Bienvenue !</h2>
+    {% comment %}
+    {% load static %}
+    <img src="{% static 'blog/crepes.jpg' %}" alt="Mon image" />
+    {% endcomment %}
     <p>
        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus 
        massa non tortor. Vestibulum diam diam, posuere in viverra in, 
