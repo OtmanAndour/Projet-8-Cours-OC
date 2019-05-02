@@ -13,12 +13,12 @@ def home(request):
 def view_article(request, id_article):
     # Si l'ID est supérieur à 100, nous considérons que l'article n'existe pas
     if int(id_article) > 100:
-        raise Http404
+        return redirect(view_redirection)
 
-    return redirect(view_redirection)
+    return HttpResponse('Votre article est le n° {0}'.format(id_article))
 
 def view_redirection(request):
-    return HttpResponse("Vous avez été redirigé.")
+    return redirect('afficher_article', id_article=89)
 
 def list_articles(request, month, year):
     # Il veut des articles ? Soyons fourbe et redirigeons-le vers djangoproject.com
