@@ -11,4 +11,5 @@ urlpatterns = [
     path('gender/<sexe>', views.gender),
     path('age/<int:age>', views.age),
     path('colors', views.colors),
+    path('mypage/<ID_article>', views.mypage),
 ]

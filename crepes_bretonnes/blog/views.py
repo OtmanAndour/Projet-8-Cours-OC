@@ -51,3 +51,6 @@ def colors(request):
     '660099':'purple',
 }
     return render(request, 'blog/colors.html', locals())
+    
+def mypage(request, ID_article):
+    return render(request, 'blog/mypage.html', locals()) 
