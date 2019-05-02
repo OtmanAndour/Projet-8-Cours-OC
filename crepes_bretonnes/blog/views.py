@@ -15,11 +15,11 @@ def view_article(request, id_article):
     if int(id_article) > 100:
         raise Http404
 
-    return HttpResponse('<h1>Mon article ici</h1>')
+    return redirect(view_redirection)
+
+def view_redirection(request):
+    return HttpResponse("Vous avez été redirigé.")
 
 def list_articles(request, month, year):
-    """ Liste des articles d'un mois précis. """
-    return HttpResponse(
-        "Vous avez demandé les articles de {0} {1}.".format(month, year)  
-    )
-
+    # Il veut des articles ? Soyons fourbe et redirigeons-le vers djangoproject.com
+    return redirect("https://www.djangoproject.com")
