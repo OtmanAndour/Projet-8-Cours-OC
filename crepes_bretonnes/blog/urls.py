@@ -12,4 +12,6 @@ urlpatterns = [
     path('age/<int:age>', views.age),
     path('colors', views.colors),
     path('mypage/<ID_article>', views.mypage),
+    path('', views.accueil, name="accueil"),
+    path('article/<int:id>-<slug:slug>$', views.lire, name="lire")
 ]
