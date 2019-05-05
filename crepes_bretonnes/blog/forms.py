@@ -25,3 +25,9 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = '__all__'
+
+    
+class NouveauContactForm(forms.Form):
+    nom = forms.CharField(max_length=100)
+    adresse = forms.CharField(widget=forms.Textarea)
+    photo = forms.ImageField()

@@ -14,6 +14,8 @@ urlpatterns = [
     path('mypage/<ID_article>', views.mypage),
     path('', views.accueil, name="accueil"),
     path('article/<int:id>-<str:slug>', views.lire, name="lire"),
-    path('contact/', views.contact, name="contact"),
-    path('add_article/', views.add_article, name="ajouter_article")
+    path('message/', views.message, name="message"),
+    path('add_article/', views.add_article, name="ajouter_article"),
+    path('contact/', views.nouveau_contact, name='nouveau_contact'),
+    path('voir_contacts', views.voir_contacts, name="voir_contacts")
 ]

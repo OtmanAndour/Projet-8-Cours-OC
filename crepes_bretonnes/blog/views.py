@@ -1,8 +1,8 @@
 from django.http import HttpResponse, Http404
 from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
-from blog.models import Article
-from .forms import ContactForm, ArticleForm
+from blog.models import *
+from .forms import *
 
 # Create your views here.
 
@@ -74,7 +74,7 @@ def lire(request, id, slug):
     article = get_object_or_404(Article, id=id, slug=slug)
     return render(request, "blog/lire.html", {'article':article })
 
-def contact(request):
+def message(request):
     # Construire le formulaire, soit avec les données postées,
     # soit vide si l'utilisateur accède pour la première fois
     # à la page.
@@ -94,10 +94,33 @@ def contact(request):
         envoi = True
     
     # Quoiqu'il arrive, on affiche la page du formulaire.
-    return render(request, 'blog/contact.html', locals())
+    return render(request, 'blog/message.html', locals())
 
 def add_article(request):
     form = ArticleForm(request.POST)
     if form.is_valid():
         form.save()
     return render(request, 'blog/add_article.html', locals())
+
+def nouveau_contact(request):
+    sauvegarde = False
+    form = NouveauContactForm(request.POST or None, request.FILES)
+    if form.is_valid():
+        contact = Contact()
+        contact.nom = form.cleaned_data["nom"]
+        contact.adresse = form.cleaned_data["adresse"]
+        contact.photo = form.cleaned_data["photo"]
+        contact.save()
+        sauvegarde = True
+
+    return render(request, 'blog/contact.html', {
+        'form': form, 
+        'sauvegarde': sauvegarde
+    })
+
+def voir_contacts(request):
+    return render(
+        request, 
+        'blog/voir_contacts.html', 
+        {'contacts': Contact.objects.all()}
+    )
