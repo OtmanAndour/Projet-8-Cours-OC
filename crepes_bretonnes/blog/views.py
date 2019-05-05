@@ -2,6 +2,7 @@ from django.http import HttpResponse, Http404
 from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from blog.models import Article
+from .forms import ContactForm, ArticleForm
 
 # Create your views here.
 
@@ -14,10 +15,17 @@ def home(request):
 
 def view_article(request, id_article):
     # Si l'ID est supérieur à 100, nous considérons que l'article n'existe pas
-    if int(id_article) > 100:
+    #Puisque l'id n'est plus juste un nombre, mais un nombre attaché avec son slug, il faut 
+    #Changer la valeur d'id pour ne garder que le nombre
+    id_parsed = ""
+    k = 0
+    while id_article[k] != "-":
+        id_parsed = id_parsed + id_article[k]
+        k = k+1
+    if int(id_parsed) > 100:
         return redirect(view_redirection)
 
-    return HttpResponse('Votre article est le n° {0}'.format(id_article))
+    return HttpResponse('Votre article est le n° {0}'.format(id_parsed))
 
 def view_redirection(request):
     return redirect('afficher_article', id_article=89)
@@ -65,3 +73,38 @@ def lire(request, id, slug):
     """ Afficher un article complet """
     article = get_object_or_404(Article, id=id, slug=slug)
     return render(request, "blog/lire.html", {'article':article })
+
+def contact(request):
+    # Construire le formulaire, soit avec les données postées,
+    # soit vide si l'utilisateur accède pour la première fois
+    # à la page.
+    form = ContactForm(request.POST or None)
+    # Nous vérifions que les données envoyées sont valides
+    # Cette méthode renvoie False s'il n'y a pas de données 
+    # dans le formulaire ou qu'il contient des erreurs.
+    if form.is_valid(): 
+        # Ici nous pouvons traiter les données du formulaire
+        sujet = form.cleaned_data['sujet']
+        message = form.cleaned_data['message']
+        envoyeur = form.cleaned_data['envoyeur']
+        renvoi = form.cleaned_data['renvoi']
+
+        # Nous pourrions ici envoyer l'e-mail grâce aux données 
+        # que nous venons de récupérer
+        envoi = True
+    
+    # Quoiqu'il arrive, on affiche la page du formulaire.
+    return render(request, 'blog/contact.html', locals())
+
+def add_article(request):
+    form = ArticleForm(request.POST or None)
+    
+    if form.is_valid():
+        titre = form.cleaned_data['titre']
+        slug = form.cleaned_data['slug']
+        auteur = form.cleaned_data['auteur']
+        contenu = form.cleaned_data['contenu']
+        date = form.cleaned_data['date']
+        categorie = form.cleaned_data['categorie']
+    
+    return render(request, 'blog/add_article.html', locals())

@@ -13,5 +13,7 @@ urlpatterns = [
     path('colors', views.colors),
     path('mypage/<ID_article>', views.mypage),
     path('', views.accueil, name="accueil"),
-    path('article/<int:id>-<slug:slug>', views.lire, name="lire")
+    path('article/<int:id>-<str:slug>', views.lire, name="lire"),
+    path('contact/', views.contact, name="contact"),
+    path('add_article/', views.add_article, name="ajouter_article")
 ]
