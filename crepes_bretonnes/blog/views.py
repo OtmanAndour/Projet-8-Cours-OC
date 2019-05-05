@@ -97,5 +97,7 @@ def contact(request):
     return render(request, 'blog/contact.html', locals())
 
 def add_article(request):
-    form = ArticleForm(request.POST or None)
+    form = ArticleForm(request.POST)
+    if form.is_valid():
+        form.save()
     return render(request, 'blog/add_article.html', locals())
