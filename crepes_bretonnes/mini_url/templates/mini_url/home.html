@@ -1,0 +1,13 @@
+<h1>Bienvenue sur le racourcisseur d'url du blog des crêpes bretonnes !</h1>
+
+<p><a href="{% url 'create_mini_url' %}">Raccourcir une URL.</a></p>
+
+<p>Liste des URL raccourcies :</p>
+
+    <ul>
+        {% for url in urls %}
+        <li>{{ url.url }} via <a href="http://{{ request.get_host }}{% url 'redirection' url.code %}">{{ request.get_host }}/{{url.code}}</a> {% if url.pseudo %}par {{ url.pseudo }}{% endif %} ({{url.acces}} accès)</li>
+    </ul>
+{% empty %}
+    <p>Aucune url à rediriger. Creez-en quelques unes!</p>
+{% endfor %}

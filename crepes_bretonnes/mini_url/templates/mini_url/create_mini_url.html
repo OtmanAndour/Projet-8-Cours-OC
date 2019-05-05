@@ -1,0 +1,9 @@
+<h1>Raccourcir une URL</h1>
+{% if envoi %}
+    <p>L'URL a bien été enregistré. Cliquer <a href="{% url 'home' %}">ici</a> pour retourner à la page d'accueil</p>
+{% endif %}
+<form action="{% url 'create_mini_url' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" />
+    </form>
