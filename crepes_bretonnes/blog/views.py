@@ -98,13 +98,4 @@ def contact(request):
 
 def add_article(request):
     form = ArticleForm(request.POST or None)
-    
-    if form.is_valid():
-        titre = form.cleaned_data['titre']
-        slug = form.cleaned_data['slug']
-        auteur = form.cleaned_data['auteur']
-        contenu = form.cleaned_data['contenu']
-        date = form.cleaned_data['date']
-        categorie = form.cleaned_data['categorie']
-    
     return render(request, 'blog/add_article.html', locals())

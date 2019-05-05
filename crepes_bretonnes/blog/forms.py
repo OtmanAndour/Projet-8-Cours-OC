@@ -22,6 +22,6 @@ class ContactForm(forms.Form):
         return cleaned_data  # N'oublions pas de renvoyer les données si tout est OK
 
 class ArticleForm(forms.ModelForm):
-    class meta:
+    class Meta:
         model = Article
         fields = '__all__'
