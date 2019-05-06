@@ -1,22 +1,32 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from mini_url.models import *
-from .forms import *
+from django.shortcuts import redirect, get_object_or_404, render
+from mini_url.models import MiniURL
+from mini_url.forms import MiniURLForm
 
 
-def home(request):
-    urls = MiniURL.objects.order_by('-acces')
-    return render(request,'mini_url/home.html', locals())
+def liste(request):
+    """ Affichage des redirections """
+    minis = MiniURL.objects.order_by('-nb_acces')
+
+    return render(request, 'mini_url/liste.html', locals())
+
+
+def nouveau(request):
+    """ Ajout d'une redirection """
+    if request.method == "POST":
+        form = MiniURLForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(liste)
+    else:
+        form = MiniURLForm()
+
+    return render(request, 'mini_url/nouveau.html', {'form': form})
+
 
 def redirection(request, code):
-    page = get_object_or_404(MiniURL, code=code)
-    page.acces += 1
-    page.save()
-    return redirect(page.url, permanent=True)
+    """ Redirection vers l'URL enregistrée """
+    mini = get_object_or_404(MiniURL, code=code)
+    mini.nb_acces += 1
+    mini.save()
 
-def create_mini_url(request):
-    form = MiniURLForm(request.POST or None)
-    envoi = False
-    if form.is_valid():
-        envoi = True
-        form.save()
-    return render(request, 'mini_url/create_mini_url.html', locals())
+    return redirect(mini.url, permanent=True)

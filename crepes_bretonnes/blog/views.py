@@ -1,6 +1,7 @@
 from django.http import HttpResponse, Http404
-from datetime import datetime
+from django.views.generic import TemplateView, ListView, DetailView
 from django.shortcuts import render, redirect, get_object_or_404
+from datetime import datetime
 from blog.models import *
 from .forms import *
 
@@ -17,15 +18,10 @@ def view_article(request, id_article):
     # Si l'ID est supérieur à 100, nous considérons que l'article n'existe pas
     #Puisque l'id n'est plus juste un nombre, mais un nombre attaché avec son slug, il faut 
     #Changer la valeur d'id pour ne garder que le nombre
-    id_parsed = ""
-    k = 0
-    while id_article[k] != "-":
-        id_parsed = id_parsed + id_article[k]
-        k = k+1
-    if int(id_parsed) > 100:
+    if int(id_article) > 100:
         return redirect(view_redirection)
 
-    return HttpResponse('Votre article est le n° {0}'.format(id_parsed))
+    return HttpResponse('Votre article est le n° {0}'.format(id_article))
 
 def view_redirection(request):
     return redirect('afficher_article', id_article=89)
@@ -64,15 +60,6 @@ def colors(request):
 def mypage(request, ID_article):
     return render(request, 'blog/mypage.html', locals()) 
 
-def accueil(request):
-    """ Afficher tous les articles de notre blog """
-    articles = Article.objects.all() # Nous sélectionnons tous nos articles
-    return render(request, 'blog/accueil.html', {'derniers_articles': articles})
-
-def lire(request, id, slug):
-    """ Afficher un article complet """
-    article = get_object_or_404(Article, id=id, slug=slug)
-    return render(request, "blog/lire.html", {'article':article })
 
 def message(request):
     # Construire le formulaire, soit avec les données postées,
@@ -124,3 +111,27 @@ def voir_contacts(request):
         'blog/voir_contacts.html', 
         {'contacts': Contact.objects.all()}
     )
+
+class FAQView(TemplateView):
+    template_name="blog/faq.html"
+
+class ListeArticles(ListView):
+    model = Article
+    context_object_name = "derniers_articles"
+    template_name = "blog/accueil.html"
+    paginate_by = 3
+
+    def get_queryset(self):
+       return Article.objects.filter(categorie__id=self.args[0])
+
+    def get_context_data(self, **kwargs):
+        # Nous récupérons le contexte depuis la super-classe
+        context = super(ListeArticles, self).get_context_data(**kwargs)
+        # Nous ajoutons la liste des catégories, sans filtre particulier
+        context['categories'] = Categorie.objects.all()
+        return context
+
+class LireArticle(DetailView):
+    context_object_name = "article"
+    model = Article
+    template_name = "blog/lire.html"
