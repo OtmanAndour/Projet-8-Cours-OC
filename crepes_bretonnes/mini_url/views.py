@@ -1,4 +1,6 @@
 from django.shortcuts import redirect, get_object_or_404, render
+from django.views.generic import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 from mini_url.models import MiniURL
 from mini_url.forms import MiniURLForm
 
@@ -30,3 +32,29 @@ def redirection(request, code):
     mini.save()
 
     return redirect(mini.url, permanent=True)
+
+class URLCreate(CreateView):
+    model = MiniURL
+    template_name = 'mini_url/nouveau.html'
+    form_class = MiniURLForm
+    success_url = reverse_lazy(liste)
+
+class URLUpdate(UpdateView):
+    model = MiniURL
+    template_name = 'mini_url/nouveau.html'
+    form_class = MiniURLForm
+    success_url = reverse_lazy(liste)
+
+    def get_object(self, queryset=None):
+        code = self.kwargs.get('code', None)
+        return get_object_or_404(MiniURL, code=code)
+
+class URLDelete(DeleteView):
+    model = MiniURL
+    context_object_name = "mini_url"
+    template_name = 'mini_url/supprimer.html'
+    success_url = reverse_lazy(liste)
+
+    def get_object(self, queryset=None):
+        code = self.kwargs.get('code', None)
+        return get_object_or_404(MiniURL, code=code)
