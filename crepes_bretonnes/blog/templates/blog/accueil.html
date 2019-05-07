@@ -17,6 +17,9 @@
 {% endfor %}
 </ul>
 
+{% load blog_extras %}
+<em>Un jour, une certaine personne m'a dit : {{ "Bonjour le monde !"|mon_filtre_citation }}</em></br>
+
 {# Mise en forme de la pagination ici #}
 {% if is_paginated %}
     <div class="pagination">

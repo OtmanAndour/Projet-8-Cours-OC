@@ -23,7 +23,5 @@ urlpatterns = [
     # Nous allons réécrire l'URL de l'accueil
     url(r'^categorie/(\d+)$', views.ListeArticles.as_view(), name="blog_categorie"),
     url(r'^article/(?P<pk>\d+)$', views.LireArticle.as_view(), name='blog_lire'),
-    # Et nous avons toujours nos autres pages…
-    #url(r'^(?P<page>\d+)$', views.archives),
-    #url(r'^categorie/(?P<slug>.+)$', views.voir_categorie),
+    url(r'^truncator', views.smart_truncator, name='smart_truncator')
 ]

@@ -3,6 +3,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime
 from blog.models import *
+from .templatetags import blog_extras
 from .forms import *
 
 # Create your views here.
@@ -135,3 +136,6 @@ class LireArticle(DetailView):
     context_object_name = "article"
     model = Article
     template_name = "blog/lire.html"
+
+def smart_truncator(request):
+    return render(request,'blog/smart_truncator.html')
