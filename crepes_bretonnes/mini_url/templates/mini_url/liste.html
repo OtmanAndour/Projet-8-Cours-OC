@@ -14,3 +14,17 @@
     <li>Il n'y en a pas actuellement.</li>
     {% endfor %}
 </ul>
+
+<div class="pagination">
+    {% if minis.has_previous %}
+        <a href="{% url 'url_liste' minis.previous_page_number %}">Précédente</a> -
+    {% endif %}
+ 
+    <span class="current">
+        Page {{ minis.number }} sur {{ minis.paginator.num_pages }}
+    </span>
+ 
+    {% if minis.has_next %}
+        - <a href="{% url 'url_liste' minis.next_page_number %}">Suivante</a>
+    {% endif %}
+ </div>
