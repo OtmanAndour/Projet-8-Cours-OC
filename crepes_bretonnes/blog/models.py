@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from datetime import datetime
 
 
 # Create your models here.
@@ -16,6 +17,11 @@ class Article(models.Model):
     class Meta:
         verbose_name = "article"
         ordering = ['date']
+
+    def est_recent(self):
+        """ Retourne True si l'article a été publié dans
+            les 30 derniers jours """
+        return (datetime.now() - self.date).days < 30
     
     def __str__(self):
         """ 
