@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
+    'django.contrib.humanize',
     'blog',
     'mini_url',
     'classe',
@@ -149,3 +152,5 @@ MEDIA_URL = '/media/'
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, '/locale/'),
 )
+
+SITE_ID = 1
