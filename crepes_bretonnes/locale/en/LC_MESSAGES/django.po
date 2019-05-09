@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-09 11:08+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\crepes_bretonnes\settings.py:129
+msgid "French"
+msgstr ""
+
+#: .\crepes_bretonnes\settings.py:130
+msgid "English"
+msgstr ""
+
+#: .\i18n\templates\i18n\test_i18n.html:10
+msgid "Contactez-nous !"
+msgstr "Contact us!"
+
+#: .\i18n\views.py:8
+msgid "Bonjour les nouveaux !"
+msgstr "Hello to the new guys !"
+
+#: .\i18n\views.py:9
+#, python-format
+msgid "Votre IP est %s"
+msgstr "Your IP is %s"
+
+#: .\i18n\views.py:11
+#, python-format
+msgid "… et selon mes informations, vous avez %s chat %s !"
+msgid_plural "… et selon mes informations, vous avez %s chats %ss !"
+msgstr[0] "... and according to me, you have %s %s cat"
+msgstr[1] "...and according to me, you have %s %s cats"
